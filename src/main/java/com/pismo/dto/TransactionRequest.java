@@ -2,16 +2,14 @@ package com.pismo.dto;
 
 import java.math.BigDecimal;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class TransactionRequest {
-    
-    // @NotBlank + @Valid no Controller para não aceitar 
-    // requests com null ou "" nos campos anotados em tempo de execução
-    @NotBlank
+
+    @NotNull
     Long accountId;
 
-    @NotBlank
+    @NotNull
     Long operationTypeId;
 
     BigDecimal amount;

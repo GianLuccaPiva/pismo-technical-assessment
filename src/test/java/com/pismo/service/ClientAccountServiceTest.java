@@ -75,13 +75,13 @@ public class ClientAccountServiceTest {
 
     @Test
     void shouldThrowExceptionWhenDocumentAlreadyExists() {
-        // Arrange
+     
         ClientAccountRequest request = new ClientAccountRequest();
         request.setDocumentNumber("12345678901");
 
         when(clientAccountRepo.existsByDocumentNumber("12345678901")).thenReturn(true);
 
-        // Act & Assert
+     
         assertThrows(RuntimeException.class, () -> {
             clientAccountService.createAccount(request);
         });
