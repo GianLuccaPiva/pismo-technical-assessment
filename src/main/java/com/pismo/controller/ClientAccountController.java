@@ -36,7 +36,6 @@ public class ClientAccountController {
         }
     
     @GetMapping("/{id}")
-    @PathVariable
     public ResponseEntity<ClientAccountResponse> getAccount(
         @PathVariable 
         Long id) {
@@ -44,9 +43,5 @@ public class ClientAccountController {
         ClientAccountResponse response = clientAccountService.getAccount(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    
-
-
-
-    
+        
 }

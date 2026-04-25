@@ -19,7 +19,7 @@ public class ClientAccountService {
     public ClientAccountResponse createAccount(ClientAccountRequest request) {
 
         if (clientAccountRepo.existsByDocumentNumber(request.getDocumentNumber())) {
-            throw new RuntimeException("Invalid Data");
+            throw new RuntimeException("Cannot Create Account");
             // Erro genérico para não informar que o número do documento
             // já está no nosso banco de dados
         }
@@ -36,7 +36,7 @@ public class ClientAccountService {
     public ClientAccountResponse getAccount(Long accountId) {
 
         ClientAccountModel account = clientAccountRepo.findById(accountId)
-        .orElseThrow(() -> new RuntimeException("No Response"));
+        .orElseThrow(() -> new RuntimeException("Not Found"));
 
         return new ClientAccountResponse(account.getAccountId(), account.getDocumentNumber());
 
