@@ -42,10 +42,10 @@ The API will be available at `http://localhost:8080`
 
 | ID | Description | Accepted Amount |
 |----|-------------|-----------------|
-| 1 | PURCHASE | Positive only |
+| 1 | PURCHASE | Negative only |
 | 2 | INSTALLMENT PURCHASE | Negative only |
 | 3 | WITHDRAWAL | Negative only |
-| 4 | PAYMENT | Negative only |
+| 4 | PAYMENT | Positive only |
 
 ## Testing
 
@@ -88,39 +88,46 @@ curl -X POST http://localhost:8080/accounts \
 curl http://localhost:8080/accounts/999
 ```
 
-**Valid transaction**
-```bash
-curl -X POST http://localhost:8080/transactions \
-  -H "Content-Type: application/json" \
-  -d '{"accountId": 1, "operationTypeId": 1, "amount": 50.00}'
-```
-
-**Transaction with invalid account**
-```bash
-curl -X POST http://localhost:8080/transactions \
-  -H "Content-Type: application/json" \
-  -d '{"accountId": 999, "operationTypeId": 1, "amount": 50.00}'
-```
-
-**Transaction with invalid operation type**
-```bash
-curl -X POST http://localhost:8080/transactions \
-  -H "Content-Type: application/json" \
-  -d '{"accountId": 1, "operationTypeId": 99, "amount": 50.00}'
-```
-
-**Transaction with invalid amount for operation type (type 1 requires positive)**
+**Valid transaction (PURCHASE — negative amount)**
 ```bash
 curl -X POST http://localhost:8080/transactions \
   -H "Content-Type: application/json" \
   -d '{"accountId": 1, "operationTypeId": 1, "amount": -50.00}'
 ```
 
-**Transaction with invalid amount for operation type (types 2, 3, 4 require negative)**
+**Valid transaction (PAYMENT — positive amount)**
 ```bash
 curl -X POST http://localhost:8080/transactions \
   -H "Content-Type: application/json" \
-  -d '{"accountId": 1, "operationTypeId": 2, "amount": 50.00}'
+  -d '{"accountId": 1, "operationTypeId": 4, "amount": 50.00}'
+```
+
+**Transaction with invalid account**
+```bash
+curl -X POST http://localhost:8080/transactions \
+  -H "Content-Type: application/json" \
+  -d '{"accountId": 999, "operationTypeId": 1, "amount": -50.00}'
+```
+
+**Transaction with invalid operation type**
+```bash
+curl -X POST http://localhost:8080/transactions \
+  -H "Content-Type: application/json" \
+  -d '{"accountId": 1, "operationTypeId": 99, "amount": -50.00}'
+```
+
+**Transaction with invalid amount for operation type (types 1, 2, 3 require negative)**
+```bash
+curl -X POST http://localhost:8080/transactions \
+  -H "Content-Type: application/json" \
+  -d '{"accountId": 1, "operationTypeId": 1, "amount": 50.00}'
+```
+
+**Transaction with invalid amount for operation type (type 4 requires positive)**
+```bash
+curl -X POST http://localhost:8080/transactions \
+  -H "Content-Type: application/json" \
+  -d '{"accountId": 1, "operationTypeId": 4, "amount": -50.00}'
 ```
 
 ## API Documentation

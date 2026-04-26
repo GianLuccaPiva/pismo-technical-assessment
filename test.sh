@@ -6,7 +6,7 @@ BASE_URL="http://localhost:8080"
 DOCUMENT_NUMBER="12345678901"
 ACCOUNT_ID=1
 OPERATION_TYPE_ID=1
-AMOUNT=50.00
+AMOUNT=-50.00
 # ==========================================
 
 SEPARATOR="=================================================="
