@@ -33,20 +33,22 @@ public class TransactionService {
     public TransactionResponse createTransaction(TransactionRequest request) {
         if (!clientAccountRepo.existsById(request.getAccountId())) {
             throw new RuntimeException("Invalid Data");
+            // Erro genérico pensando em evitar resource enumeration
         }
 
         if (!operationTypeRepo.existsById(request.getOperationTypeId())) {
             throw new RuntimeException("Invalid Data");
+            // Erro genérico pensando em evitar resource enumeration
         }
 
         switch (request.getOperationTypeId().intValue()) {
-            case 1 -> {
+            case 4 -> {
                 if (request.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
                     throw new IllegalArgumentException("Amount must be a positive value");
                 }
             }
             
-            case 2, 3, 4 -> {
+            case 1, 2, 3 -> {
                 if (request.getAmount().compareTo(BigDecimal.ZERO) >= 0) {
                     throw new IllegalArgumentException("Amount Must be a negativa value");
                     

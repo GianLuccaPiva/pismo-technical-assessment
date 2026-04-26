@@ -37,9 +37,9 @@ public class TransactionTest {
     @Test
     void shouldCreateTransactionSuccessfully() {
 
-    TransactionRequest request = new TransactionRequest(1L, 1L, new BigDecimal("50.00"));
+    TransactionRequest request = new TransactionRequest(1L, 1L, new BigDecimal("-50.00"));
 
-    TransactionModel saved = new TransactionModel(1L, 1L, new BigDecimal("50.00"));
+    TransactionModel saved = new TransactionModel(1L, 1L, new BigDecimal("-50.00"));
 
     when(clientAccountRepo.existsById(1L)).thenReturn(true);
     when(operationTypeRepo.existsById(1L)).thenReturn(true);
@@ -62,6 +62,7 @@ public class TransactionTest {
         transactionService.createTransaction(request);
     });
 
+    assertEquals("Invalid Data", exception.getMessage());
     System.out.println("Exceção lançada: " + exception.getMessage());
 }
 
@@ -77,24 +78,26 @@ public class TransactionTest {
             transactionService.createTransaction(request);
         });
 
+        assertEquals("Invalid Data", exception.getMessage());
         System.out.println("Exceção lançada: " + exception.getMessage());
 
 
     }
 
     @Test
-    void shouldThrowExceptionWhenOperationTypePurchaseHaveNegativeAmount() {
-        TransactionRequest request = new TransactionRequest(1L, 1L, new BigDecimal("-50.00"));
+    void shouldThrowExceptionWhenPaymentHasNegativeAmount() {
+        TransactionRequest request = new TransactionRequest(1L, 4L, new BigDecimal("-50.00"));
 
         when(clientAccountRepo.existsById(1L)).thenReturn(true);
-        when(operationTypeRepo.existsById(1L)).thenReturn(true);
+        when(operationTypeRepo.existsById(4L)).thenReturn(true);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             transactionService.createTransaction(request);
         });
 
+        assertEquals("Amount must be a positive value", exception.getMessage());
         System.out.println("Exceção lançada: " + exception.getMessage());
-        
+
     }
 
     @Test
@@ -108,6 +111,7 @@ public class TransactionTest {
             transactionService.createTransaction(request);
         });
 
+        assertEquals("Amount Must be a negativa value", exception.getMessage());
         System.out.println("Exceção lançada: " + exception.getMessage());
         
     }
