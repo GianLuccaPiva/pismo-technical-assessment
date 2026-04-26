@@ -1,15 +1,20 @@
 #!/bin/bash
 
-# ==========================================
-# Configurações — altere aqui para seus testes
 BASE_URL="http://localhost:8080"
-DOCUMENT_NUMBER="12345678901"
-ACCOUNT_ID=1
-OPERATION_TYPE_ID=1
-AMOUNT=-50.00
-# ==========================================
-
 SEPARATOR="=================================================="
+
+printf "\n%s\n" "$SEPARATOR"
+printf " Pismo API - Test Runner\n"
+printf "%s\n\n" "$SEPARATOR"
+
+read -p "Document number (ex: 12345678901 — exactly 11 digits): " DOCUMENT_NUMBER
+read -p "Account ID (ex: 1): " ACCOUNT_ID
+printf "Operation types: 1=PURCHASE, 2=INSTALLMENT PURCHASE, 3=WITHDRAWAL, 4=PAYMENT\n"
+read -p "Operation type ID (1, 2, 3 or 4): " OPERATION_TYPE_ID
+printf "Amount rules: types 1, 2, 3 require negative (ex: -50.00) | type 4 requires positive (ex: 50.00)\n"
+echo "For Operation Type 1,2,3 (Ex: -50)"
+echo "For Operation Type 4 (Ex: 50)"
+read -p "Amount : " AMOUNT
 
 printf "\n%s\n" "$SEPARATOR"
 printf " POST /accounts - Criando conta\n"
