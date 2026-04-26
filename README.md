@@ -56,7 +56,16 @@ chmod +x test.sh
 ./test.sh
 ```
 
-Edit the variables at the top of `test.sh` to customize the test data.
+The script will prompt you for the following values:
+
+| Prompt | Example | Rule |
+|--------|---------|------|
+| Document number | `12345678901` | Exactly 11 digits |
+| Account ID | `1` | Must be an existing account |
+| Operation type ID | `1`, `2`, `3` or `4` | See operation types table above |
+| Amount | `-50.00` or `50.00` | Types 1, 2, 3 → negative \| Type 4 → positive |
+
+The script runs three requests in sequence: POST /accounts → GET /accounts/{id} → POST /transactions.
 
 ### Test cases
 
